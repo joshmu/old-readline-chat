@@ -9,7 +9,7 @@ io.on('connection', function(socket){
 	console.log('user connected');
 
 	var msg = {
-		type: 'msg',
+		type: 'notice',
 		message : 'hello from the server!'
 	};
 

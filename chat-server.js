@@ -7,6 +7,13 @@ io.on('connection', function(socket){
 	//user connected
 	console.log('user connected');
 
+	var msg = {
+		type: 'msg',
+		message : 'hello from the server!'
+	};
+
+	socket.emit('message', msg);
+
 	//broadcast message
 	socket.on('send', function(data){
 		console.log('broadcasting message');

@@ -1,26 +1,22 @@
 <!doctype html>
 <html>
 <head>
-	<title>Socket.IO chat</title>
-	<style>
-		* { margin: 0; padding: 0; box-sizing: border-box; }
-		body { font: 13px Helvetica, Arial; }
-		form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
-		form input { border: 0; padding: 10px; width: 90%; margin-right: .5%; }
-		form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
-		#messages { list-style-type: none; margin: 0; padding: 0; }
-		#messages li { padding: 5px 10px; }
-		#messages li:nth-child(odd) { background: #eee; }
-	</style>
-	<script src="/socket.io/socket.io.js"></script>
-	<script>
-		var socket = io();
-	</script>
+	<title>Command Line Chat with NodeJS</title>
+	<!--<script src="/socket.io/socket.io.js"></script>-->
+	<!--<script>-->
+		<!--var socket = io();-->
+	<!--</script>-->
 </head>
 <body>
-<ul id="messages"></ul>
-<form action="">
-	<input id="m" autocomplete="off" /><button>Send</button>
-</form>
+	<h1>Command Line Chat with NodeJS</h1>
+	<p>Right click this <a href="chat-client.js">file</a> & save.  Make sure you also have node installed.</p>
+	<p>Open your command line and init: <code>node path/to/chat-client.js</code></p>
+	<br/>
+	<h4>COMMANDS</h4>
+	<ul>
+		<li><b>/nick</b> newNickname = change nickname</li>
+		<li><b>/me</b> status = broadcast a status</li>
+		<li><b>/msg</b> to message = private message</li>
+	</ul>
 </body>
 </html>

@@ -1,12 +1,13 @@
-var port = Number(process.env.PORT || 5000);
+//var port = Number(process.env.PORT || 5000);
 
+var port = 3000;
 
 var app = require('express')();
 var http = require('http').Server(app);
-var io = require('socket.io')(app);
+var io = require('socket.io')(http);
 
 app.get('/', function(req, res){
-	res.sendFile('index.html');
+	res.send('<strong>Hello form the server!</strong>');
 });
 
 http.listen(port, function(){

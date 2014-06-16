@@ -5,7 +5,7 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
 app.get('/', function(req, res){
-	res.send('<strong>Hello form the server!</strong>');
+	res.sendfile('index.html');
 });
 
 http.listen(port, function(){

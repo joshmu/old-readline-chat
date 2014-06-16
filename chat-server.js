@@ -1,8 +1,21 @@
-//var port = Number(process.env.PORT || 5000);
-var port = 5000;
-var io = require('socket.io').listen(port, function(){
-	console.log('Listening on port:', port);
+var port = Number(process.env.PORT || 5000);
+
+
+var app = require('express')();
+var http = require('http').Server(app);
+var io = require('socket.io')(app);
+
+app.get('/', function(req, res){
+	res.sendFile('index.html');
 });
+
+http.listen(port, function(){
+	console.log('listening on *:' + port);
+});
+
+
+
+
 
 io.on('connection', function(socket){
 	//user connected

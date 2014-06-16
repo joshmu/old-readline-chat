@@ -5,6 +5,7 @@
   "main": "server.js",
   "dependencies": {
     "ansi-color": "^0.2.1",
+    "express": "^4.4.3",
     "socket.io": "^1.0.4",
     "socket.io-client": "^1.0.4"
   },

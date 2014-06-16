@@ -6,7 +6,7 @@ var readline = require('readline'),
 	color = require('ansi-color').set;
 
 var nick;
-var socket = socketio.connect('http://longlivepigs.herokuapp.com:80');
+var socket = socketio.connect('http://longlivepigs.herokuapp.com');
 var rl = readline.createInterface(process.stdin, process.stdout);
 
 //ASKING USER'S NAME

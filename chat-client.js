@@ -5,15 +5,20 @@ var readline = require('readline'),
 	util = require('util'),
 	color = require('ansi-color').set;
 
+var client = {};
 var nick;
-var socket = socketio.connect('http://caffeinedreams.herokuapp.com');
+var url = 'http://caffeinedreams.herokuapp.com';
+//var url = 'http://localhost:3000';
+var socket = socketio.connect(url);
 var rl = readline.createInterface(process.stdin, process.stdout);
 
 //ASKING USER'S NAME
 rl.question('Please enter a nickname: ', function(name){
 	nick = name;
+	client.nick = nick;
 	var msg = nick + ' has joined the chat.';
 	socket.emit('send', {type:'notice', message: msg});
+	socket.emit('client_info', client);
 	rl.prompt(true);
 });
 
@@ -43,6 +48,8 @@ function chat_command(cmd, arg) {
 		case 'nick':
 			var notice = nick + ' changed their name to ' + arg;
 			nick = arg;
+			client.nick = nick;
+			socket.emit('update_client_info', client);
 			socket.emit('send', {type:'notice', message:notice});
 			break;
 
@@ -55,6 +62,10 @@ function chat_command(cmd, arg) {
 		case 'me':
 			var emote = nick + ' ' + arg;
 			socket.emit('send', {type: 'emote', message: emote});
+			break;
+
+		case 'who':
+			socket.emit('whoishere');
 			break;
 
 		default:
@@ -87,3 +98,10 @@ socket.on('message', function(data){
 	}
 
 });
+
+
+//cache socket id
+socket.on('socketid', function(socketid){
+	client.id = socketid;
+});
+

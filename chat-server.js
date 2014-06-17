@@ -18,7 +18,6 @@ io.on('connection', function(socket){
 	//user connected
 	console.log('user connected');
 	console.log('socket id is:', socket.id);
-	console.log('Clients online are:', Clients);
 
 	//store client information
 	socket.emit('socketid', socket.id);
@@ -50,21 +49,31 @@ io.on('connection', function(socket){
 		//user disconnected
 		console.log('user disconnected', socket.id);
 
-		var leaver = Clients.filter(function(client){
-			console.log(client);
-			return client.id === socket.id
-		})[0];
-		console.log('leaver is:', leaver);
-		user_leaves(leaver);
-		update_clients(socket.id);
+		update(socket.id);
 
 	});
 });
 
+function update(id) {
+	if(Clients.length > 1) {
+		var leaver = Clients.filter(function(client){
+			console.log(client);
+			return client.id === id
+		})[0];
+		console.log('leaver is:', leaver);
+		user_leaves(leaver);
+		update_clients(id);
+	} else {
+		console.log('0 clients...');
+		Clients = [];
+	}
+}
+
 function update_clients(id) {
-	Clients = Clients.map(function(client){
+	Clients = Clients.filter(function(client){
 		return client.id !== id;
 	});
+	console.log(Clients.length + ' clients remaining.');
 }
 
 function inspect_message(msg) {
@@ -80,14 +89,18 @@ function user_leaves(user) {
 }
 
 function clients_present(socket) {
+	var chatters = Clients.map(function(client){
+		return client.nick;
+	});
+
 	var msg = {
 		type: 'notice',
-		message : " : "
+		message: chatters.length + ' chatting: '
 	};
 
-	Clients.forEach(function(client){
-		msg.message += client.nick + ' : '
-	});
+	msg.message += chatters.slice(0,chatters.length-1).join(', ');
+	msg.message += chatters.length > 1 ? " & " : "";
+	msg.message += chatters[chatters.length-1] + ".";
 
 	socket.emit('message', msg);
 

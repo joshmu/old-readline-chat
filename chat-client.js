@@ -7,8 +7,8 @@ var readline = require('readline'),
 
 var client = {};
 var nick;
-//var url = 'http://caffeinedreams.herokuapp.com';
-var url = 'http://localhost:3000';
+var url = 'http://caffeinedreams.herokuapp.com';
+//var url = 'http://localhost:3000';
 var socket = socketio.connect(url);
 var rl = readline.createInterface(process.stdin, process.stdout);
 
